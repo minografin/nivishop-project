@@ -1,0 +1,143 @@
+<!-- collections.html -->
+{% extends 'base.html' %}
+{% block title %}
+Collections
+{% endblock title %}
+{% block content %}
+
+<head>
+    <style>
+        /* Base styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        img {
+            max-width: 100%;
+        }
+        
+        /* Media queries */
+        @media (max-width: 768px) {
+            /* Stack table rows vertically */
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+        
+            /* Hide table headers */
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+        
+            tr {
+                border: 1px solid #ccc;
+
+            }
+        
+            td {
+                /* Behave like a "row" */
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50%;
+                text-align: right;
+            }
+        
+            td:before {
+                /* Now, like a table header */
+                position: absolute;
+                top: 6px;
+                left: 6px;
+                width: calc(50% - 12px);
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+            }
+        
+            /* Label the data */
+            td:nth-of-type(1):before { content: "Image"; }
+            td:nth-of-type(2):before { content: "Product Name"; }
+            td:nth-of-type(3):before { content: "Unit"; }
+            td:nth-of-type(4):before { content: "Quantity"; }
+            td:nth-of-type(5):before { content: "Amount"; }
+            td:nth-of-type(6):before { content: "Remove"; }
+        }
+        
+        /* Smaller devices (phones) */
+        @media (max-width: 480px) {
+            td {
+                padding-left: 40%;
+            }
+        
+            td:before {
+                width: calc(50% - 20px);
+            }
+        }
+        </style>
+        
+
+
+
+    <section class="bg-light py-4 my-5">
+        <div class="container" style="">
+            <div class="row py-lg-5">
+                <div class="col-12">
+                    <h4 class="mb-3">Cart  Items </h4>
+                    <hr style="border-color:#b8bfc2;">
+                </div>
+                
+                <table class="">
+                    <tr>
+                        <th>Image</th>
+                        <th>Product_Name</th>
+                        <th>Unit</th>
+                        <th>Quantity</th>
+                        <th>Amount</th>
+                        <th>Delete</th>
+                    </tr> 
+                    {% for item in Cart %}
+                    <tr>
+                        <td><img src="{{ item.product.Product_image.url }}" height="75px"  alt="{{item.Product.Name}}"></td>
+                        <td>{{item.product.Name}}</td>
+                        <td>{{item.product.sales_price | stringformat:'d'}}</td>
+                        <td>{{item.product_qty}}</td>
+                        <td class="amd">{{item.total_cast | stringformat:'d' }}</td>
+                        <td><a href="{% url 'delete_cart' item.id %}" onclick="return confirm('Are You Sure? to Delete') " class="btn btn-danger btn-sm"><i class=" fa fa-trash "></i> Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td colspan="2"><b>Total Amount</b></td>
+                        <td id="net">0</td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </section>
+    <script>
+        const nodes=document.querySelectorAll('.amd');
+        const arr=Array.from(nodes);
+        const res=arr.reduce((acc,curr)=>{
+            return acc+=Number(curr.textContent)
+        },0);
+        document.getElementById('net').innerHTML="RS: "+res;
+        </script>
+
+
+
+{% endblock content %}
+</head>

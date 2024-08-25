@@ -1,0 +1,61 @@
+
+html{
+    font-size: 14px;
+}
+
+body{
+    font-family: 'Noto Sans',sans-serif;
+}
+
+
+a{
+    text-decoration: none;
+}
+
+#summa{
+    display: flex;
+    justify-content : space-between;
+}
+
+
+
+carousel-item img {
+    object-fit: cover;
+    object-position: top;
+    height: 60vh;
+    overflow: hidden;
+}
+
+
+.old_price{
+    font-weight: bold;
+    color: red;
+
+}
+
+.new_price{
+    font-weight: bold;
+    background-color: green;
+    color: white;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+.Pic {
+    position: relative;
+}
+.hot {
+    background-color: peru;
+    color: blue;
+    width: 50px;
+    padding:10px;
+    text-align: center;
+    font-weight: bold;
+    display: inline;
+    border-radius: 5px;
+    padding: 5px;
+    top: 0;
+    right: 20px;
+    position: absolute;
+    z-index: 10px;
+}
